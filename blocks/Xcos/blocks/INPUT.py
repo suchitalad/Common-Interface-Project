@@ -13,7 +13,7 @@ from common.AAAAAA import *
 #     return outnode
 
 
-def get_from_ENDBLK(cell):
+def get_from_INPUT(cell):
     parameters = getParametersFromExprsNode(cell, TYPE_DOUBLE)
 
     display_parameter = ''
