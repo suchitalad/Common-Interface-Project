@@ -6,121 +6,74 @@ tree = ET.parse("/home/spoken/Common-Interface-Project/blocks/ex_test_1.xml")
 root = tree.getroot()
 
 # Define the namespace
-# namespace = {'mx': 'http://www.w3.org/2001/XMLSchema-instance'}
 namespace = {'': ''}
-
-# Find all elements with 'style' attribute containing 'STARTBLK'
-startblk_elements = root.findall(".//mxCell[@style='STARTBLK']", namespace)
-# print(startblk_elements)
-
-
-# Print the IDs of the elements
-for element in startblk_elements:
-    # print("Startblk found with ID:", element.get('explicitOutputPorts'))
-    explicit_output_port = root.find('.//mxCell[@style="ExplicitOutputPort"]')
-    
-    if explicit_output_port.get('ParentComponent') == element.get('id'):
-        sourceVertex = explicit_output_port.get('id')
-        edge = root.find('.//mxCell[@edge="1"]')
         
-        if sourceVertex == edge.get('sourceVertex'):
-            targetVertex = edge.get('targetVertex')
-            id = root.find(f".//mxCell[@id='{targetVertex}']")
-            pid = id.get('ParentComponent')
-            parent_component = root.find(f".//mxCell[@id='{pid}']")
-            blk_name = parent_component.get('style')
+def get_block_elements(style):
+    return root.findall(f".//mxCell[@style='{style}']")
+    
+def get_explicit_output_ports(block_id):
+    explicit_output = f".//mxCell[@style='ExplicitOutputPort'][@ParentComponent='{block_id}']"
+    return root.findall(explicit_output)
+    
+def get_next_block_name(block_id):
+    parent_component = root.find(f".//mxCell[@id='{block_id}']") 
+    if parent_component is not None: 
+        return parent_component.get('style') 
+    else:
+        return None
+        
+def get_next_block_explicit_output_ports(block_id):
+    next_blk_name = get_next_block_name(block_id) 
+    if next_blk_name:
+        next_blk = root.find(f".//mxCell[@id='{block_id}']")
+        if next_blk:
+            explicit_output_ports = next_blk.get('explicitOutputPorts')
+            if explicit_output_ports and int(explicit_output_ports) > 0:
+                return get_explicit_output_ports(next_blk.get('id'))
+    return []
+    
+def print_source_target(source_vertex, target_vertex):
+    print(f"Source: {source_vertex}, Target: {target_vertex}")
+
+def find_block_by_target_value(target_vertex):
+    parent_component = root.find(f".//mxCell[@id='{target_vertex}']")
+    if parent_component is not None:
+        target = parent_component.get('targetVertex')
+        id = root.find(f".//mxCell[@id='{target}']")
+        pid = id.get('ParentComponent')
+        parent_components = root.find(f".//mxCell[@id='{pid}']")
+        if parent_components is not None:
+            blk_name = parent_components.get('style')
             print(blk_name, pid)
-            explicit_output = root.findall('.//mxCell[@style="ExplicitOutputPort"]')
+        # else:
+        #     find_block_by_target_value(target_vertex)
 
-            for elem in explicit_output:
-                if elem.get('ParentComponent') == pid:
-                    sourceVertex1 = elem.get('id')
-                    print(sourceVertex1)
-                    edge = root.findall('.//mxCell[@edge="1"]')
-                    
-                    for ele in edge:
-                        if sourceVertex1 == ele.get('sourceVertex'):
-                            targetVertex1 = ele.get('targetVertex')
-                            id = root.find(f".//mxCell[@id='{targetVertex1}']")
-                            pid = id.get('ParentComponent')
-                            parent_component = root.find(f".//mxCell[@id='{pid}']")
-                            blk_name = parent_component.get('style')
-                            print(blk_name, pid)
-
-
-        
-
-#                 print("Style of parent component (ID: %s): %s" % (parent_component_id, parent_component_style))
-#         else:
-#             print("ExplicitInputPort with ID '%s' not found." % explicit_input_port_id)
-#     else:
-#         print("No explicitInputPort found for the component with ID '60'.")
-# else:
-#     print("No component found with ID '4'.")  
-
-
-# def generate_python_output(input_file):
-#     tree = ET.parse(input_file)
-#     root = tree.getroot()
+def process_block_recursive(block_id, depth=0, processed_blocks=set()):
+    if block_id in processed_blocks:
+        return  # Stop processing if the block has already been processed
+    processed_blocks.add(block_id)
     
+    next_block_explicit_output_ports = get_next_block_explicit_output_ports(block_id)
+    # print(next_block_explicit_output_ports) # Number of ports in block
+    for port in next_block_explicit_output_ports:
+        source_vertex = port.get('id') 
+        edges = root.findall(f".//mxCell[@edge='1'][@sourceVertex='{source_vertex}']")
+        for edge in edges:
+            target_vertex = edge.get('targetVertex')
+            print_source_target(source_vertex, target_vertex)
+            next_block_id = root.find(f".//mxCell[@id='{target_vertex}']").get('ParentComponent')
+            next_block_name = get_next_block_name(next_block_id)
+            print(next_block_name, next_block_id)
+            if next_block_name:
+                process_block_recursive(next_block_id, depth + 1, processed_blocks)  # Pass the set of processed blocks
+            else:
+                find_block_by_target_value(target_vertex)
 
-#     output = ""
+def process_blocks(style):
+    blocks = get_block_elements(style)
+    for block in blocks:
+        block_id = block.get('id')
+        print(f"{style} having explicitOutputPorts: {block.get('explicitOutputPorts')} and block ID: {block_id}")
+        process_block_recursive(block_id)
 
-#     for mxCell in root.iter('mxCell'):
-#         style = mxCell.attrib.get('style', None)
-        
-#         p000_value = mxCell.find(".//Object[@p000_value]")
-#         p001_value = mxCell.find(".//Object[@p001_value]")
-        
-#         if style is not None and style == 'ASSIGNMENT':
-#             if p000_value is not None and p001_value is not None:
-#                 value_1 = p000_value.attrib.get('p000_value', '')
-#                 value_2 = p001_value.attrib.get('p001_value', '')
-#                 output += f"{value_1} = {value_2}\n"
-
-#         if style is not None and style == 'IF':
-#             if p000_value is not None: 
-#                 value_1 = p000_value.attrib.get('p000_value', '')      
-#                 output += f"if {value_1}:\n"
-#                 # output += f"    True\n"  # Print "True"
-#                 # print(value_1)
-#                 if value_1:  # Check if value_1 evaluates to True
-#                     output += f" {value_1}    # Code in if \n"  # Execute code inside if block
-#                 else:
-#                     output += f"check the value # Code outside if block \n"  # Execute code outside if block
-
-#         if style is not None and style == 'ELIF':
-#             if p000_value is not None: 
-#                 value_1 = p000_value.attrib.get('p000_value', '')      
-#                 output += f"elif {value_1}:\n"
-                
-#                 if value_1:  # Check if value_1 evaluates to True
-#                     output += f" {value_1}    # Code in if \n"  # Execute code inside if block
-#                 else:
-#                     output += f"check the value # Code outside if block \n"  # Execute code outside if block
-
-#         if style is not None and style == 'FOR':
-#             if p000_value is not None: 
-#                 value_1 = p000_value.attrib.get('p000_value', '')
-#                 value_2 = p001_value.attrib.get('p001_value', '')      
-#                 output += f"for {value_1} in {value_2}:\n"
-#                 my_range = range(10)
-#                 integer_10 = list(my_range)[-1]
-#                 for value_1 in range(integer_10):
-#                     output += f" {value_1} \n"
-                
-#         if style is not None and style == 'WHILE':
-#             if p000_value is not None:
-#                 value_1 = p000_value.attrib.get('p000_value', '')
-#                 output += f"while {value_1}:\n"
-#                 output += f"    # Code \n"
-
-#     return output
-
-# input_file = "/home/spoken/Common-Interface-Project/blocks/ex_test_1.xml"
-# output = generate_python_output(input_file)
-
-# with open("/home/spoken/Common-Interface-Project/blocks/output.py", "w") as f:
-#     f.write(output)
-
-# print("Python file 'output.py' generated successfully.")
+process_blocks('STARTBLK')
