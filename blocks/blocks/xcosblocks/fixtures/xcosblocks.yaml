@@ -8,7 +8,6 @@
     blocktype: 1
     name: Commonly Used Blocks
     sort_order: 1
-
 - model: xcosblocks.parameterdatatype
   pk: 1
   fields:
@@ -238,7 +237,7 @@
     block_name: IF
     initial_display_parameter: ''
     simulation_function: intplt
-    block_image_path: palettes/CURV_f.png
+    block_image_path: palettes/If.png
     block_width: 40
     block_height: 40
     categories:
@@ -312,7 +311,7 @@
     block_name: ASSIGNMENT
     initial_display_parameter: ''
     simulation_function: intplt
-    block_image_path: palettes/CURV_f.png
+    block_image_path: palettes/assignment.png
     block_width: 100
     block_height: 40
     categories:
@@ -386,7 +385,7 @@
     block_name: FOR
     initial_display_parameter: ''
     simulation_function: intplt
-    block_image_path: palettes/CURV_f.png
+    block_image_path: palettes/For.png
     block_width: 40
     block_height: 40
     categories:
@@ -460,7 +459,7 @@
     block_name: WHILE
     initial_display_parameter: ''
     simulation_function: intplt
-    block_image_path: palettes/CURV_f.png
+    block_image_path: palettes/While.png
     block_width: 60
     block_height: 40
     categories:
@@ -534,7 +533,7 @@
     block_name: STOPBLK
     initial_display_parameter: ''
     simulation_function: csuper
-    block_image_path: palettes/ENDBLK.png
+    block_image_path: palettes/Endblk.png
     block_width: 40
     block_height: 40
     categories:
@@ -608,7 +607,7 @@
     block_name: INPUT
     initial_display_parameter: ''
     simulation_function: intplt
-    block_image_path: palettes/CURV_f.png
+    block_image_path: palettes/Input.png
     block_width: 60
     block_height: 40
     categories:
@@ -682,7 +681,7 @@
     block_name: OUTPUT
     initial_display_parameter: ''
     simulation_function: intplt
-    block_image_path: palettes/CURV_f.png
+    block_image_path: palettes/Output.png
     block_width: 60
     block_height: 40
     categories:
@@ -830,7 +829,7 @@
     block_name: FUNC
     initial_display_parameter: ''
     simulation_function: intplt
-    block_image_path: palettes/CURV_f.png
+    block_image_path: palettes/Func.png
     block_width: 60
     block_height: 40
     categories:
@@ -857,7 +856,7 @@
     p016_value_initial: ''
     p017_value_initial: ''
     p018_value_initial: ''
-    p019_value_initial: null
+    p019_value_initial: ''
     p020_value_initial: null
     p021_value_initial: null
     p022_value_initial: null
@@ -904,7 +903,7 @@
     block_name: STARTBLK
     initial_display_parameter: ''
     simulation_function: csuper
-    block_image_path: palettes/ENDBLK.png
+    block_image_path: palettes/Startblk.png
     block_width: 60
     block_height: 40
     categories:
@@ -931,7 +930,7 @@
     p016_value_initial: ''
     p017_value_initial: ''
     p018_value_initial: ''
-    p019_value_initial: null
+    p019_value_initial: ''
     p020_value_initial: null
     p021_value_initial: null
     p022_value_initial: null
@@ -978,12 +977,159 @@
     block_name: Arithmatic
     initial_display_parameter: ''
     simulation_function: intplt
-    block_image_path: palettes/CURV_f.png
+    block_image_path: palettes/Arithmatic.png
     block_width: 80
     block_height: 40
     categories:
     - 1
-
+- model: xcosblocks.block
+  pk: 239
+  fields:
+    p000_value_initial: ''
+    p001_value_initial: ''
+    p002_value_initial: ''
+    p003_value_initial: ''
+    p004_value_initial: ''
+    p005_value_initial: ''
+    p006_value_initial: ''
+    p007_value_initial: ''
+    p008_value_initial: ''
+    p009_value_initial: ''
+    p010_value_initial: ''
+    p011_value_initial: ''
+    p012_value_initial: ''
+    p013_value_initial: ''
+    p014_value_initial: ''
+    p015_value_initial: ''
+    p016_value_initial: ''
+    p017_value_initial: ''
+    p018_value_initial: ''
+    p019_value_initial: ''
+    p020_value_initial: null
+    p021_value_initial: null
+    p022_value_initial: null
+    p023_value_initial: null
+    p024_value_initial: null
+    p025_value_initial: null
+    p026_value_initial: null
+    p027_value_initial: null
+    p028_value_initial: null
+    p029_value_initial: null
+    p030_value_initial: null
+    p031_value_initial: null
+    p032_value_initial: null
+    p033_value_initial: null
+    p034_value_initial: null
+    p035_value_initial: null
+    p036_value_initial: null
+    p037_value_initial: null
+    p038_value_initial: null
+    p039_value_initial: null
+    p040_value_initial: null
+    p041_value_initial: null
+    p042_value_initial: null
+    p043_value_initial: null
+    p044_value_initial: null
+    p045_value_initial: null
+    p046_value_initial: null
+    p047_value_initial: null
+    p048_value_initial: null
+    p049_value_initial: null
+    p050_value_initial: null
+    p051_value_initial: null
+    p052_value_initial: null
+    p053_value_initial: null
+    p054_value_initial: null
+    p055_value_initial: null
+    p056_value_initial: null
+    p057_value_initial: null
+    p058_value_initial: null
+    p059_value_initial: null
+    name: ELIF
+    blockprefix: 1
+    main_category: 1
+    block_name: ELIF
+    initial_display_parameter: ''
+    simulation_function: intplt
+    block_image_path: palettes/Elif.png
+    block_width: 40
+    block_height: 40
+    categories:
+    - 1
+- model: xcosblocks.block
+  pk: 240
+  fields:
+    p000_value_initial: ''
+    p001_value_initial: ''
+    p002_value_initial: ''
+    p003_value_initial: ''
+    p004_value_initial: ''
+    p005_value_initial: ''
+    p006_value_initial: ''
+    p007_value_initial: ''
+    p008_value_initial: ''
+    p009_value_initial: ''
+    p010_value_initial: ''
+    p011_value_initial: ''
+    p012_value_initial: ''
+    p013_value_initial: ''
+    p014_value_initial: ''
+    p015_value_initial: ''
+    p016_value_initial: ''
+    p017_value_initial: ''
+    p018_value_initial: ''
+    p019_value_initial: ''
+    p020_value_initial: null
+    p021_value_initial: null
+    p022_value_initial: null
+    p023_value_initial: null
+    p024_value_initial: null
+    p025_value_initial: null
+    p026_value_initial: null
+    p027_value_initial: null
+    p028_value_initial: null
+    p029_value_initial: null
+    p030_value_initial: null
+    p031_value_initial: null
+    p032_value_initial: null
+    p033_value_initial: null
+    p034_value_initial: null
+    p035_value_initial: null
+    p036_value_initial: null
+    p037_value_initial: null
+    p038_value_initial: null
+    p039_value_initial: null
+    p040_value_initial: null
+    p041_value_initial: null
+    p042_value_initial: null
+    p043_value_initial: null
+    p044_value_initial: null
+    p045_value_initial: null
+    p046_value_initial: null
+    p047_value_initial: null
+    p048_value_initial: null
+    p049_value_initial: null
+    p050_value_initial: null
+    p051_value_initial: null
+    p052_value_initial: null
+    p053_value_initial: null
+    p054_value_initial: null
+    p055_value_initial: null
+    p056_value_initial: null
+    p057_value_initial: null
+    p058_value_initial: null
+    p059_value_initial: null
+    name: ELSE
+    blockprefix: 1
+    main_category: 1
+    block_name: ELSE
+    initial_display_parameter: ''
+    simulation_function: intplt
+    block_image_path: palettes/Else.png
+    block_width: 40
+    block_height: 40
+    categories:
+    - 1
 - model: xcosblocks.blockparameter
   pk: 228
   fields:
@@ -1111,12 +1257,12 @@
 - model: xcosblocks.blockparameter
   pk: 229
   fields:
-    p000: Variable name
-    p000_type: 6
-    p001: Initial Value
-    p001_type: 3
-    p002: Condition
-    p002_type: 3
+    p000: Condition
+    p000_type: 1
+    p001: null
+    p001_type: null
+    p002: null
+    p002_type: null
     p003: null
     p003_type: null
     p004: null
@@ -1237,10 +1383,10 @@
   fields:
     p000: Variable name
     p000_type: 6
-    p001: Initial Value
-    p001_type: 3
-    p002: Condition
-    p002_type: 3
+    p001: Condition
+    p001_type: 1
+    p002: null
+    p002_type: null
     p003: null
     p003_type: null
     p004: null
@@ -1359,12 +1505,12 @@
 - model: xcosblocks.blockparameter
   pk: 231
   fields:
-    p000: Variable name
-    p000_type: 6
-    p001: Initial Value
-    p001_type: 3
-    p002: Condition
-    p002_type: 3
+    p000: Condition
+    p000_type: 1
+    p001: null
+    p001_type: null
+    p002: null
+    p002_type: null
     p003: null
     p003_type: null
     p004: null
@@ -1976,7 +2122,130 @@
     p059: null
     p059_type: null
     block: 238
-
+- model: xcosblocks.blockparameter
+  pk: 236
+  fields:
+    p000: Condition
+    p000_type: 1
+    p001: null
+    p001_type: null
+    p002: null
+    p002_type: null
+    p003: null
+    p003_type: null
+    p004: null
+    p004_type: null
+    p005: null
+    p005_type: null
+    p006: null
+    p006_type: null
+    p007: null
+    p007_type: null
+    p008: null
+    p008_type: null
+    p009: null
+    p009_type: null
+    p010: null
+    p010_type: null
+    p011: null
+    p011_type: null
+    p012: null
+    p012_type: null
+    p013: null
+    p013_type: null
+    p014: null
+    p014_type: null
+    p015: null
+    p015_type: null
+    p016: null
+    p016_type: null
+    p017: null
+    p017_type: null
+    p018: null
+    p018_type: null
+    p019: null
+    p019_type: null
+    p020: null
+    p020_type: null
+    p021: null
+    p021_type: null
+    p022: null
+    p022_type: null
+    p023: null
+    p023_type: null
+    p024: null
+    p024_type: null
+    p025: null
+    p025_type: null
+    p026: null
+    p026_type: null
+    p027: null
+    p027_type: null
+    p028: null
+    p028_type: null
+    p029: null
+    p029_type: null
+    p030: null
+    p030_type: null
+    p031: null
+    p031_type: null
+    p032: null
+    p032_type: null
+    p033: null
+    p033_type: null
+    p034: null
+    p034_type: null
+    p035: null
+    p035_type: null
+    p036: null
+    p036_type: null
+    p037: null
+    p037_type: null
+    p038: null
+    p038_type: null
+    p039: null
+    p039_type: null
+    p040: null
+    p040_type: null
+    p041: null
+    p041_type: null
+    p042: null
+    p042_type: null
+    p043: null
+    p043_type: null
+    p044: null
+    p044_type: null
+    p045: null
+    p045_type: null
+    p046: null
+    p046_type: null
+    p047: null
+    p047_type: null
+    p048: null
+    p048_type: null
+    p049: null
+    p049_type: null
+    p050: null
+    p050_type: null
+    p051: null
+    p051_type: null
+    p052: null
+    p052_type: null
+    p053: null
+    p053_type: null
+    p054: null
+    p054_type: null
+    p055: null
+    p055_type: null
+    p056: null
+    p056_type: null
+    p057: null
+    p057_type: null
+    p058: null
+    p058_type: null
+    p059: null
+    p059_type: null
+    block: 239
 - model: xcosblocks.blockport
   pk: 534
   fields:
@@ -1998,7 +2267,7 @@
     port_name: '1'
     port_number: '1'
     port_x: 20
-    port_y: 0
+    port_y: -10
     port_orientation: ExplicitOutputPort
     port_part: 1
     port_dmg: 1
@@ -2011,7 +2280,7 @@
     port_name: '1'
     port_number: '1'
     port_x: 20
-    port_y: 0
+    port_y: -10
     port_orientation: ExplicitOutputPort
     port_part: 1
     port_dmg: 1
@@ -2024,7 +2293,7 @@
     port_name: '1'
     port_number: '1'
     port_x: 30
-    port_y: 0
+    port_y: 10
     port_orientation: ExplicitOutputPort
     port_part: 1
     port_dmg: 1
@@ -2090,6 +2359,188 @@
     port_number: '1'
     port_x: 30
     port_y: 0
+    port_orientation: ExplicitOutputPort
+    port_part: 1
+    port_dmg: 1
+    port_type: ExplicitOutputPort
+- model: xcosblocks.blockport
+  pk: 543
+  fields:
+    block: 228
+    port_order: 2
+    port_name: '2'
+    port_number: '2'
+    port_x: 20
+    port_y: 10
+    port_orientation: ExplicitOutputPort
+    port_part: 1
+    port_dmg: 1
+    port_type: ExplicitOutputPort
+- model: xcosblocks.blockport
+  pk: 545
+  fields:
+    block: 239
+    port_order: 1
+    port_name: '1'
+    port_number: '1'
+    port_x: 20
+    port_y: 0
+    port_orientation: ExplicitOutputPort
+    port_part: 1
+    port_dmg: 1
+    port_type: ExplicitOutputPort
+- model: xcosblocks.blockport
+  pk: 546
+  fields:
+    block: 240
+    port_order: 1
+    port_name: '1'
+    port_number: '1'
+    port_x: 20
+    port_y: 0
+    port_orientation: ExplicitOutputPort
+    port_part: 1
+    port_dmg: 1
+    port_type: ExplicitOutputPort
+- model: xcosblocks.blockport
+  pk: 547
+  fields:
+    block: 228
+    port_order: 0
+    port_name: '1'
+    port_number: '1'
+    port_x: -20
+    port_y: 0
+    port_orientation: ExplicitInputPort
+    port_part: 0
+    port_dmg: 0
+    port_type: ExplicitInputPort
+- model: xcosblocks.blockport
+  pk: 548
+  fields:
+    block: 233
+    port_order: 0
+    port_name: '1'
+    port_number: '1'
+    port_x: -30
+    port_y: 0
+    port_orientation: ExplicitInputPort
+    port_part: 0
+    port_dmg: 0
+    port_type: ExplicitInputPort
+- model: xcosblocks.blockport
+  pk: 549
+  fields:
+    block: 239
+    port_order: 0
+    port_name: '1'
+    port_number: '1'
+    port_x: -30
+    port_y: 0
+    port_orientation: ExplicitInputPort
+    port_part: 0
+    port_dmg: 0
+    port_type: ExplicitInputPort
+- model: xcosblocks.blockport
+  pk: 550
+  fields:
+    block: 239
+    port_order: 2
+    port_name: '2'
+    port_number: '2'
+    port_x: 0
+    port_y: -28
+    port_orientation: ControlPort
+    port_part: 1
+    port_dmg: 1
+    port_type: ControlPort
+- model: xcosblocks.blockport
+  pk: 551
+  fields:
+    block: 240
+    port_order: 0
+    port_name: '1'
+    port_number: '1'
+    port_x: -30
+    port_y: 0
+    port_orientation: ExplicitInputPort
+    port_part: 0
+    port_dmg: 0
+    port_type: ExplicitInputPort
+- model: xcosblocks.blockport
+  pk: 552
+  fields:
+    block: 234
+    port_order: 3
+    port_name: '1'
+    port_number: '1'
+    port_x: 30
+    port_y: 0
+    port_orientation: ExplicitOutputPort
+    port_part: 1
+    port_dmg: 1
+    port_type: ExplicitOutputPort
+- model: xcosblocks.blockport
+  pk: 553
+  fields:
+    block: 231
+    port_order: 2
+    port_name: '2'
+    port_number: '2'
+    port_x: 30
+    port_y: -10
+    port_orientation: ExplicitOutputPort
+    port_part: 1
+    port_dmg: 1
+    port_type: ExplicitOutputPort
+- model: xcosblocks.blockport
+  pk: 554
+  fields:
+    block: 231
+    port_order: 0
+    port_name: '1'
+    port_number: '1'
+    port_x: -30
+    port_y: 0
+    port_orientation: ExplicitInputPort
+    port_part: 0
+    port_dmg: 0
+    port_type: ExplicitInputPort
+- model: xcosblocks.blockport
+  pk: 555
+  fields:
+    block: 229
+    port_order: 0
+    port_name: '1'
+    port_number: '1'
+    port_x: -50
+    port_y: 0
+    port_orientation: ExplicitInputPort
+    port_part: 0
+    port_dmg: 0
+    port_type: ExplicitInputPort
+- model: xcosblocks.blockport
+  pk: 556
+  fields:
+    block: 230
+    port_order: 0
+    port_name: '1'
+    port_number: '1'
+    port_x: -50
+    port_y: 0
+    port_orientation: ExplicitInputPort
+    port_part: 0
+    port_dmg: 0
+    port_type: ExplicitInputPort
+- model: xcosblocks.blockport
+  pk: 557
+  fields:
+    block: 230
+    port_order: 2
+    port_name: '2'
+    port_number: '2'
+    port_x: 20
+    port_y: 10
     port_orientation: ExplicitOutputPort
     port_part: 1
     port_dmg: 1
