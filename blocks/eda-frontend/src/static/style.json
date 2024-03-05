@@ -62,6 +62,33 @@
     "fontColor": "black",
     "noLabel": 0
   },
+  "Print": {
+    "shape": "label",
+    "perimeter": "rectanglePerimeter",
+    "strokeColor": "black",
+    "strokeWidth": 0.5,
+    "fillColor": "#cdcdcd",
+    "fontColor": "black",
+    "noLabel": 0,
+    "spacing": 13,
+    "gradientColor": "white",
+    "rounded": 1,
+    "displayedLabel": "%s"
+  },
+  "Gain": {
+    "shape": "triangle",
+    "perimeter": "trianglePerimeter",
+    "strokeColor": "black",
+    "strokeWidth": 0.5,
+    "fillColor": "#cdcdcd",
+    "fontColor": "black",
+    "noLabel": 0,
+    "spacing": 13,
+    "gradientColor": "white",
+    "rounded": 1,
+    "direction": "east",
+    "displayedLabel": "%s"
+  },
   "Icon": {
     "shape": "label",
     "perimeter": "rectanglePerimeter",
@@ -363,19 +390,6 @@
     "gradientColor": "white",
     "rounded": 1,
     "displayedLabel": "Arithmatic"
-  },
-  "STEP_FUNCTION": {
-    "shape": "label",
-    "perimeter": "rectanglePerimeter",
-    "strokeColor": "black",
-    "strokeWidth": 0.5,
-    "fillColor": "#cdcdcd",
-    "fontColor": "black",
-    "noLabel": 0,
-    "gradientColor": "white",
-    "rounded": 1,
-    "imageBorder": "black",
-    "image": "/django_static/blocks/STEP_FUNCTION.svg"
   },
   "GOTOMO": {
     "shape": "hexagon",

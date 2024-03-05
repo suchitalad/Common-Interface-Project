@@ -107,6 +107,7 @@ def set_block_parameter(request):
         stream = io.BytesIO(request.body)
         data = JSONParser().parse(stream)
         serializer = SetBlockParameterSerializer(data=data)
+        print(serializer)
         if serializer.is_valid():
             # process the data to get port
             try:
