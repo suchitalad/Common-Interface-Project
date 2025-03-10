@@ -53,8 +53,12 @@ class XmlUploader(APIView):
         if serializer.is_valid():
             serializer.save()
             task_id = serializer.data['task_id']
-            celery_task = process_task.apply_async(
-                kwargs={'task_id': str(task_id)}, task_id=str(task_id))
+            
+            session_data = serializer.data['session']
+            session_id = session_data.get('session_id')
+            print('s_id:', session_id)
+            print('session:', serializer.data['session'])
+            celery_task = process_task.apply_async(args=(str(task_id)))
             response_data = {
                 'state': celery_task.state,
                 'details': serializer.data,

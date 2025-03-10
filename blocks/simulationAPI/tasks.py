@@ -3,6 +3,9 @@ from celery.exceptions import Ignore
 from celery.utils.log import get_task_logger
 from redis import Redis
 import traceback
+from contextlib import contextmanager
+import time
+import random
 
 from blocks.celery_tasks import app
 from simulationAPI.helpers import ngspice_helper
@@ -10,51 +13,57 @@ from simulationAPI.models import Task
 
 logger = get_task_logger(__name__)
 
+        
+redis_client = Redis(host='localhost', port=6379, db=0)
 
-def acquire_lock(session_id, timeout=1800):
-    redis_client = Redis.from_url(app.conf.broker_url)
-    lock = redis_client.lock(f"simulation_lock:{session_id}", timeout=timeout)
-    lock.acquire(blocking=True)
-    return lock
+LOCK_EXPIRE = 60  # Lock expiry in seconds (fallback for stuck tasks)
+MAX_RETRIES = 5  # Maximum retry attempts
+BACKOFF_BASE = 2  # Base for exponential backoff
 
+@contextmanager
+def session_lock(session_id):
+    """ Context manager to ensure a session lock per session_id. """
+    lock_key = f"session_lock:{session_id}"
+    acquired = redis_client.set(lock_key, 1, ex=LOCK_EXPIRE, nx=True)
 
-def release_lock(lock):
-    lock.release()
+    if acquired:
+        try:
+            yield
+        finally:
+            redis_client.delete(lock_key)
+    else:
+        raise Exception(f"Session {session_id} is already running")
 
-
-@shared_task
-def process_task(task_id):
-    task = Task.objects.get(task_id=task_id)
-    session_id = task.session.session_id
-    lock = acquire_lock(session_id)  # Prevent multiple runs per session
-
+@shared_task(bind=True, acks_late=True, max_retries=MAX_RETRIES)
+def process_task(self, task_id):
+    """ Celery task with session locking and retry logic. """
     try:
-        logger.info("Processing %s %s %s",
-                    session_id, task.file.path, task.session.app_name)
+        task = Task.objects.get(task_id=task_id)
+        session_id = task.session.session_id
 
-        current_task.update_state(
-            state='PROGRESS',
-            meta={'current_process': 'Started Processing File'})
+        with session_lock(session_id):
+            print(f"[{task_id}] Processing session {session_id}")
 
-        output = ngspice_helper.ExecXml(task)
-        if output == "Streaming":
-            state = 'STREAMING'
-            current_process = 'Processed Xml, Streaming Output'
-        elif output == "Success":
-            state = 'SUCCESS'
-            current_process = 'Processed Xml, Loading Output'
+            # Execute XML processing
+            output = ngspice_helper.ExecXml(task)
+            state = 'STREAMING' if output == "Streaming" else 'SUCCESS'
+            current_process = 'Processed Xml, Streaming Output' if output == "Streaming" else 'Processed Xml, Loading Output'
 
-        current_task.update_state(
-            state=state,
-            meta={'current_process': current_process})
-        return output
+            self.update_state(state=state, meta={'current_process': current_process})
+            print(f"[{task_id}] Finished session {session_id}")
+            return output
 
     except Exception as e:
-        current_task.update_state(state=states.FAILURE, meta={
+        print(f"[{task_id}] Skipped session {session_id}: {e}")
+        self.update_state(state=states.FAILURE, meta={
             'exc_type': type(e).__name__,
-            'exc_message': traceback.format_exc().split('\n')})
-        logger.exception('Exception Occurred:')
-        raise Ignore()
+            'exc_message': traceback.format_exc().split('\n')
+        })
 
-    finally:
-        release_lock(lock)  # Ensure lock is always released
+        if self.request.retries < MAX_RETRIES:
+            countdown = BACKOFF_BASE ** self.request.retries + random.uniform(0, 1)
+            print(f"[{task_id}] Retrying in {round(countdown, 2)} seconds...")
+            raise self.retry(exc=e, countdown=countdown)
+        else:
+            print(f"[{task_id}] Max retries reached. Task dropped.")
+            raise Ignore()
