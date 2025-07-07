@@ -9,6 +9,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView, RetrieveAPIView
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import ensure_csrf_cookie
 import traceback
 import uuid
 from .models import Gallery, StateSave, BookCategory, Book
@@ -322,6 +324,7 @@ class GalleryListView(ListAPIView):
         return queryset
 
 
+@method_decorator(ensure_csrf_cookie, name='dispatch')
 class GalleryDetailView(RetrieveAPIView):
     permission_classes = (AllowAny,)
     queryset = Gallery.objects.all()
